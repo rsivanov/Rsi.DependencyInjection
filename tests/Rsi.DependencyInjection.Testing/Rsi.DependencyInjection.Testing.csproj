@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="3.1.5" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\Rsi.DependencyInjection\Rsi.DependencyInjection.csproj" />
+    </ItemGroup>
+
+</Project>
