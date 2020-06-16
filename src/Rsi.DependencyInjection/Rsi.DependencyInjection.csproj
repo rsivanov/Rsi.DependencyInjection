@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-        <AssemblyVersion>0.0.1</AssemblyVersion>
+        <AssemblyVersion>$(Version)</AssemblyVersion>
         <Authors>rsivanov</Authors>
         <PackageVersion>$(AssemblyVersion)</PackageVersion>
         <PackageLicenseUrl>https://raw.githubusercontent.com/rsivanov/DependencyInjection/master/LICENSE.md</PackageLicenseUrl>
