@@ -115,7 +115,8 @@ foreach (var wrappedServiceDescriptor in services)
             var serviceLifetime = wrappedServiceDescriptor.Lifetime == ServiceLifetime.Singleton
                 ? ServiceLifetime.Scoped
                 : wrappedServiceDescriptor.Lifetime;
-            newServices.Add(ServiceDescriptor.Describe(wrappedServiceDescriptor.ServiceType, objectFactory, serviceLifetime));
+            newServices.Add(ServiceDescriptor.Describe(wrappedServiceDescriptor.ServiceType, 
+                objectFactory, serviceLifetime));
         }
     }
     else
