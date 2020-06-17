@@ -6,7 +6,7 @@
 
 This project implements a couple of extension methods for [Microsoft.Extensions.DependencyInjection](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-3.1) to allow mocking services inside unit or integration tests without rebuilding the DI container.
 
-Why it matters? Imagine that you have several hundred or even thousands of integration tests where you mock services using [ConfigureTestServices](https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-3.1#inject-mock-services). In every such test you'll have to rebuild the container completely and it'll take a significant amount of time.
+Why it matters? Imagine that you have several hundred or even thousands of integration tests where you mock services using [ConfigureTestServices](https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-3.1#inject-mock-services). In every such a test you'll have to rebuild the container completely and it'll take a significant amount of time.
 
 You can cut the total test running time by an order of magnitude, if you build the DI container only once.
 
