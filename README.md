@@ -129,9 +129,9 @@ services.Add(newServices);
 ```
 Known limitations
 ==
-* We can only replace existing service registrations with mock ones and can't add any new service registrations that weren't present in the container before it was built. This is due to the static nature of MS DI container.
-* We can't mock open-generic service registrations due to limitations of MS DI factory methods such as:
+* We can only replace existing service registrations with new ones and can't add any service registrations that weren't present in the container before it was built. This is due to the static nature of MS DI container.
+* We can't replace open-generic service registrations due to limitations of MS DI factory methods such as:
 ```csharp 
 services.AddSingleton(typeof(IInterface<>), typeof(Implementation<>));
 ```
-Just replace open-generic service registrations with closed-generic versions if you want to mock them.
+Just change open-generic service registrations to closed-generic versions if you want to mock them.
