@@ -1,8 +1,6 @@
-name: .NET Core
+name: Pull request build & test
 
 on:
-  push:
-    branches: [ master ]
   pull_request:
     branches: [ master ]
 
@@ -16,7 +14,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.101
+        dotnet-version: 3.1.200
     - name: Install dependencies
       run: dotnet restore
     - name: Build
