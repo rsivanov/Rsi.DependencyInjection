@@ -12,7 +12,7 @@ You can cut the total test running time by an order of magnitude, if you build t
 
 Inspired by
 ===
-I've been using [Autofac](https://autofac.org/) for quite some time before moving to [Microsoft.Extensions.DependencyInjection](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-3.1) as my DI container of choice. In Autofac they have the ability to [add service registrations on the fly](https://autofaccn.readthedocs.io/en/latest/lifetime/working-with-scopes.html#adding-registrations-to-a-lifetime-scope) without rebuilding the container.
+I've been using [Autofac](https://autofac.org/) for quite some time before moving to [Microsoft.Extensions.DependencyInjection](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-3.1) as my DI container of choice. Autofac has the ability to [add service registrations on the fly](https://autofaccn.readthedocs.io/en/latest/lifetime/working-with-scopes.html#adding-registrations-to-a-lifetime-scope) without rebuilding the container.
 ```csharp
 using(var scope = container.BeginLifetimeScope(
   builder =>
