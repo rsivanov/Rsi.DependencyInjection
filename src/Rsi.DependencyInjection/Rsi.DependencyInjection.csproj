@@ -7,11 +7,11 @@
         <AssemblyVersion>$(PackageVersion)</AssemblyVersion>
         <Authors>rsivanov</Authors>
         <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-        <PackageProjectUrl>https://github.com/rsivanov/DependencyInjection</PackageProjectUrl>
+        <PackageProjectUrl>https://github.com/rsivanov/Rsi.DependencyInjection</PackageProjectUrl>
         <PackageDescription>Provides a couple of simple methods for mocking services registered in a Microsoft Dependency Injection container without rebuilding the container</PackageDescription>
         <Copyright>Copyright 2020</Copyright>
         <PackageTags>DependencyInjection</PackageTags>
-        <RepositoryUrl>https://github.com/rsivanov/DependencyInjection</RepositoryUrl>
+        <RepositoryUrl>https://github.com/rsivanov/Rsi.DependencyInjection</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
     </PropertyGroup>
 
