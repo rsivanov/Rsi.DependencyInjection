@@ -3,9 +3,9 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-        <AssemblyVersion>$(Version)</AssemblyVersion>
+        <PackageVersion>0.0.1</PackageVersion>
+        <AssemblyVersion>$(PackageVersion)</AssemblyVersion>
         <Authors>rsivanov</Authors>
-        <PackageVersion>$(AssemblyVersion)</PackageVersion>
         <PackageLicenseUrl>https://raw.githubusercontent.com/rsivanov/DependencyInjection/master/LICENSE.md</PackageLicenseUrl>
         <PackageProjectUrl>https://github.com/rsivanov/DependencyInjection</PackageProjectUrl>
         <PackageDescription>Provides a couple of simple methods for mocking services registered in a Microsoft Dependency Injection container without rebuilding the container</PackageDescription>

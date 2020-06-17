@@ -32,7 +32,7 @@ namespace Rsi.DependencyInjection
 
 			public object GetService(Type serviceType)
 			{
-				return NestedServiceScope.ServiceProvider.GetService(serviceType);
+				return NestedServiceScope.ServiceScope.ServiceProvider.GetService(serviceType);
 			}
 		}
 
@@ -69,7 +69,7 @@ namespace Rsi.DependencyInjection
 			}
 		}
 
-		public IServiceProvider ServiceProvider => ServiceScope.ServiceProvider;
+		public IServiceProvider ServiceProvider => NestedProvider;
 
 		public ServiceDescriptor GetClosestServiceDefinition(Type serviceType)
 		{
