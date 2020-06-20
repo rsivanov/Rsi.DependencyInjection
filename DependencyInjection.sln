@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rsi.DependencyInjection.Sam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rsi.DependencyInjection.Testing", "tests\Rsi.DependencyInjection.Testing\Rsi.DependencyInjection.Testing.csproj", "{2614A5B0-02F7-45B4-B2D4-3A6E5AB53C60}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rsi.DependencyInjection.Benchmark", "tests\Rsi.DependencyInjection.Benchmark\Rsi.DependencyInjection.Benchmark.csproj", "{F8805587-F510-4654-A6DB-665493491C96}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,11 +40,16 @@ Global
 		{2614A5B0-02F7-45B4-B2D4-3A6E5AB53C60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2614A5B0-02F7-45B4-B2D4-3A6E5AB53C60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2614A5B0-02F7-45B4-B2D4-3A6E5AB53C60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8805587-F510-4654-A6DB-665493491C96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8805587-F510-4654-A6DB-665493491C96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8805587-F510-4654-A6DB-665493491C96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8805587-F510-4654-A6DB-665493491C96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B8088369-A10E-44A5-97D7-00BB40E46F8B} = {B5AB5140-1A71-42AD-8FEB-457B90A78C0E}
 		{69EACDFC-58CD-41EF-AB94-E410F414BE4C} = {B5AB5140-1A71-42AD-8FEB-457B90A78C0E}
 		{998685FA-C260-40E2-B2E1-5363765FFA0B} = {B5AB5140-1A71-42AD-8FEB-457B90A78C0E}
 		{2614A5B0-02F7-45B4-B2D4-3A6E5AB53C60} = {B5AB5140-1A71-42AD-8FEB-457B90A78C0E}
+		{F8805587-F510-4654-A6DB-665493491C96} = {B5AB5140-1A71-42AD-8FEB-457B90A78C0E}
 	EndGlobalSection
 EndGlobal

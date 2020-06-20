@@ -78,6 +78,83 @@ public async Task GetSampleValue_WhenCalledWithMock_ReturnsMockValue()
 ```
 As you can see, it's similar to Autofac [BeginLifetimeScope](https://autofaccn.readthedocs.io/en/latest/lifetime/working-with-scopes.html#adding-registrations-to-a-lifetime-scope), but for [Microsoft.Extensions.DependencyInjection](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-3.1).
 
+Benchmarks
+===
+I used [BenchmarkDotNet](https://benchmarkdotnet.org) to compare running time of integration tests with mocks using ConfigureTestServices (which is recommended by Microsoft in the official documentation) and CreateScope:
+```csharp
+public class TestHostBenchmarks
+{
+    private static readonly WebApplicationFactory<Startup> Factory = new WebApplicationFactory<Startup>();
+    
+    private static readonly HttpClient Client;
+    private static readonly IServiceProvider RootScope;
+
+    static TestHostBenchmarks()
+    {
+        var testServer = Factory.WithWebHostBuilder(builder =>
+        {
+            builder.ConfigureServices(services => services.DecorateServicesForTesting(t => t.IsMockable()));
+        }).Server;
+        testServer.PreserveExecutionContext = true;
+        
+        Client = testServer.CreateClient();
+        RootScope = testServer.Services.CreateScope().ServiceProvider;
+    }
+    
+    [Benchmark]
+    public async Task ConfigureTestServices()
+    {
+        var client = Factory.WithWebHostBuilder(builder =>
+            {
+                builder.ConfigureTestServices(mockServices =>
+                {
+                    var mockSampleService = Substitute.For<ISampleService>();
+                    mockSampleService.GetSampleValue().ReturnsForAnyArgs("Mock value");
+                    mockServices.AddSingleton(_ => mockSampleService);					
+                });
+            })
+            .CreateClient();
+        
+        var sampleController = RestClient.For<ISampleController>(client);
+        
+        var sampleValue = await sampleController.GetSampleValue();
+        Assert.Equal("Mock value", sampleValue);
+    }
+
+    [Benchmark]
+    public async Task CreateScope()
+    {
+        using var mockServiceScope = RootScope.CreateScope(mockServices =>
+        {
+            var mockSampleService = Substitute.For<ISampleService>();
+            mockSampleService.GetSampleValue().ReturnsForAnyArgs("Mock value");
+            mockServices.AddSingleton(_ => mockSampleService);
+        });
+        var sampleController = RestClient.For<ISampleController>(Client);
+        
+        var sampleValue = await sampleController.GetSampleValue();
+        Assert.Equal("Mock value", sampleValue);			
+    }
+}
+```
+Here are the benchmark results:
+``` ini
+
+BenchmarkDotNet=v0.12.1, OS=macOS Catalina 10.15.5 (19F101) [Darwin 19.5.0]
+Intel Core i9-9880H CPU 2.30GHz, 1 CPU, 16 logical and 8 physical cores
+.NET Core SDK=3.1.102
+  [Host] : .NET Core 3.1.2 (CoreCLR 4.700.20.6602, CoreFX 4.700.20.6702), X64 RyuJIT
+
+Job=InProcess  Server=True  Toolchain=InProcessEmitToolchain  
+
+```
+|                Method |        Mean |       Error |      StdDev |      Median |
+|---------------------- |------------:|------------:|------------:|------------:|
+| ConfigureTestServices | 71,879.9 μs | 2,195.18 μs | 6,438.07 μs | 69,563.8 μs |
+|           CreateScope |    119.8 μs |     0.68 μs |     0.61 μs |    119.7 μs |
+
+As you can see, CreateScope is **600 times** faster than ConfigureTestServices, and the reason for this is quite simple - it doesn't require to rebuild the test container when you need to replace service implementations!
+
 How it works
 ===
 For all existing service registrations that meet a decoration criteria we change Singleton lifetimes to Scoped and replace service descriptors with a custom factory inside DecorateServicesForTesting. 
