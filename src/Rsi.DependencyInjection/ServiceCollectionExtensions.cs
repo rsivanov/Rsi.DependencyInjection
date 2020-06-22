@@ -81,20 +81,25 @@ namespace Rsi.DependencyInjection
 
 				if (decorationCriteria(wrappedServiceDescriptor.ServiceType))
 				{
-					//We can't mock classes and open-generic interfaces
+					var serviceLifetime = wrappedServiceDescriptor.Lifetime == ServiceLifetime.Singleton
+						? ServiceLifetime.Scoped
+						: wrappedServiceDescriptor.Lifetime;
+					
 					if (wrappedServiceDescriptor.ServiceType.IsClass ||
 					    wrappedServiceDescriptor.ServiceType.IsGenericType &&
 					    wrappedServiceDescriptor.ServiceType.ContainsGenericParameters)
 					{
-						newServices.Add(wrappedServiceDescriptor);
+						if (wrappedServiceDescriptor.ImplementationInstance != null)
+							newServices.Add(new ServiceDescriptor(wrappedServiceDescriptor.ServiceType, wrappedServiceDescriptor.ImplementationInstance));
+						else if (wrappedServiceDescriptor.ImplementationFactory != null)
+							newServices.Add(ServiceDescriptor.Describe(wrappedServiceDescriptor.ServiceType,
+								wrappedServiceDescriptor.ImplementationFactory, serviceLifetime));
+						else
+							newServices.Add(ServiceDescriptor.Describe(wrappedServiceDescriptor.ServiceType,
+								wrappedServiceDescriptor.ImplementationType, serviceLifetime));						
 					}
 					else
 					{
-						//We change decorated services Singleton lifetimes to Scoped to make mocked registrations local
-						//to a concrete mock scope
-						var serviceLifetime = wrappedServiceDescriptor.Lifetime == ServiceLifetime.Singleton
-							? ServiceLifetime.Scoped
-							: wrappedServiceDescriptor.Lifetime;
 						newServices.Add(ServiceDescriptor.Describe(wrappedServiceDescriptor.ServiceType, objectFactory, serviceLifetime));
 					}
 				}
